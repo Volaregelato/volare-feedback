@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volare - Feedback Clienti</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f8fb;margin:0}
+.container{max-width:900px;margin:20px auto;background:#fff;padding:25px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+h1{color:#0D47A1;text-align:center}
+label{display:block;margin-top:12px;font-weight:bold}
+input,select,textarea{width:100%;padding:10px;margin-top:5px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box}
+button{background:#26C6DA;color:white;border:none;padding:14px 20px;border-radius:8px;font-size:16px;cursor:pointer;margin-top:20px}
+button:hover{opacity:.9}
+.note{font-size:12px;color:#666}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Volare</h1>
+<p>Feedback, reclami, suggerimenti e valutazione del servizio.</p>
+
+<form id="feedbackForm">
+<label>Lingua</label>
+<select name="lingua">
+<option>Italiano</option>
+<option>Português</option>
+<option>Español</option>
+</select>
+
+<label>Nome e Cognome</label>
+<input type="text" name="nome">
+
+<label>Telefono / WhatsApp</label>
+<input type="text" name="telefono">
+
+<label>Email</label>
+<input type="email" name="email">
+
+<label>Valutazione Generale (1-5)</label>
+<select name="valutazioneGenerale">
+<option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option>
+</select>
+
+<label>Tipo</label>
+<select name="tipo">
+<option>Reclamo</option>
+<option>Suggerimento</option>
+<option>Complimento</option>
+</select>
+
+<label>Area</label>
+<select name="area">
+<option>Gelato</option>
+<option>Servizio</option>
+<option>Pulizia</option>
+<option>Ambiente</option>
+<option>Attesa</option>
+<option>Altro</option>
+</select>
+
+<label>Attendente</label>
+<input type="text" name="attendente" placeholder="Nome dell'attendente">
+
+<label>Valutazione Attendente (1-5)</label>
+<select name="valutazioneAttendente">
+<option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option>
+</select>
+
+<label>Commento Positivo</label>
+<textarea name="commentoPositivo"></textarea>
+
+<label>Suggerimento per l'attendente</label>
+<textarea name="suggerimentoAttendente"></textarea>
+
+<label>NPS (0-10)</label>
+<input type="number" min="0" max="10" name="nps">
+
+<label>Motivazione NPS</label>
+<textarea name="motivazioneNps"></textarea>
+
+<label>Messaggio</label>
+<textarea name="messaggio"></textarea>
+
+<label>
+<input type="checkbox" name="consensoContatto" value="Si"> Autorizzo il contatto
+</label>
+
+<button type="submit">Invia Feedback</button>
+</form>
+
+<p id="status"></p>
+</div>
+
+<script>
+const SCRIPT_URL = "INCOLLA_QUI_IL_TUO_URL_APPS_SCRIPT";
+
+document.getElementById("feedbackForm").addEventListener("submit", async function(e){
+ e.preventDefault();
+
+ const formData = Object.fromEntries(new FormData(this).entries());
+
+ try{
+   const response = await fetch(SCRIPT_URL,{
+     method:"POST",
+     headers:{"Content-Type":"application/json"},
+     body:JSON.stringify(formData)
+   });
+
+   document.getElementById("status").innerText =
+     response.ok ? "Grazie! Feedback inviato." : "Errore durante l'invio.";
+ }catch(err){
+   document.getElementById("status").innerText = "Errore di connessione.";
+ }
+});
+</script>
+</body>
+</html>
