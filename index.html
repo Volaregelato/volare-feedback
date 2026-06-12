@@ -139,43 +139,27 @@ button:hover{opacity:.9}
 </div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw62eB_4PKYfYgRJZrKwB0Y-HLPcAcJ1oSh0bEZwR5NgzFomUmbyMMjmFCNYhB9kMvJ/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxm_W236LYhi87ouBpNT__YXUVeZfqzugNsnLOBOZfOVkLVPBM_IRABgXZPuaFajDkYfg/exec";
 
 document.getElementById("feedbackForm").addEventListener("submit", async function(e){
- e.preventDefault();
+  e.preventDefault();
 
- const formData = Object.fromEntries(new FormData(this).entries());
+  try {
+    const formData = new FormData(this);
 
- try{
-   const response = await fetch(SCRIPT_URL,{
-     method:"POST",
-     headers:{"Content-Type":"application/json"},
-     body:JSON.stringify(formData)
-   });
+    await fetch(SCRIPT_URL,{
+      method:"POST",
+      body: formData
+    });
 
-   document.getElementById("status").innerText =
-     response.ok ? "Grazie! Feedback inviato." : "Errore durante l'invio.";
- }catch(err){
-   document.getElementById("status").innerText = "Errore di connessione.";
- }
-});
- document.getElementById("feedbackForm").addEventListener("submit", async function(e){
- e.preventDefault();
+    document.getElementById("status").innerText =
+      "Grazie! Feedback inviato.";
 
- const formData = Object.fromEntries(new FormData(this).entries());
-
- try{
-   const response = await fetch(SCRIPT_URL,{
-     method:"POST",
-     headers:{"Content-Type":"application/json"},
-     body:JSON.stringify(formData)
-   });
-
-   document.getElementById("status").innerText =
-     response.ok ? "Grazie! Feedback inviato." : "Errore durante l'invio.";
- }catch(err){
-   document.getElementById("status").innerText = "Errore di connessione.";
- }
+  } catch(err){
+    console.error(err);
+    document.getElementById("status").innerText =
+      "Errore di connessione.";
+  }
 });
 
 document.querySelector('input[name="dataVisita"]').value =
@@ -194,6 +178,6 @@ document.querySelector('select[name="tipo"]').addEventListener('change', functio
 });
  
 </script>
-</script>
+ 
 </body>
 </html>
