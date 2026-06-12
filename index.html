@@ -37,7 +37,17 @@ button:hover{opacity:.9}
 <label>Email</label>
 <input type="email" name="email">
 
-<label>Valutazione Generale (1-5)</label>
+ <label>Data della Visita</label>
+<input type="date" name="dataVisita">
+
+<label>Sei un cliente:</label>
+<select name="tipoCliente">
+<option value="Prima visita">Prima visita</option>
+<option value="Già venuto alcune volte">Già venuto alcune volte</option>
+<option value="Cliente abituale">Cliente abituale</option>
+</select>
+
+ <label>Valutazione Generale (1-5)</label>
 <select name="valutazioneGenerale">
 <option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option>
 </select>
@@ -60,7 +70,18 @@ button:hover{opacity:.9}
 </select>
 
 <label>Attendente</label>
-<input type="text" name="attendente" placeholder="Nome dell'attendente">
+<select name="attendente">
+<option value="">Seleziona</option>
+<option>Stefany</option>
+<option>Bernardo</option>
+<option>Luis</option>
+<option>Barbara</option>
+<option>Maria Rita</option>
+<option>Anna</option>
+<option>Massimo</option>
+<option>Não me lembro</option>
+<option>Outro</option>
+</select>
 
 <label>Valutazione Attendente (1-5)</label>
 <select name="valutazioneAttendente">
@@ -73,7 +94,32 @@ button:hover{opacity:.9}
 <label>Suggerimento per l'attendente</label>
 <textarea name="suggerimentoAttendente"></textarea>
 
-<label>NPS (0-10)</label>
+ <label>Cosa ti è piaciuto di più</label>
+<select name="gostouMais">
+<option>Qualità del gelato</option>
+<option>Servizio</option>
+<option>Ambiente</option>
+<option>Pulizia</option>
+<option>Prezzo</option>
+<option>Varietà di gusti</option>
+</select>
+
+<label>Come hai conosciuto Volare</label>
+<select name="origem">
+<option>Passando davanti</option>
+<option>Amici/Famiglia</option>
+<option>Google Maps</option>
+<option>Instagram</option>
+<option>Facebook</option>
+<option>Tripadvisor</option>
+<option>Altro</option>
+</select>
+ 
+<label>Consiglieresti Volare ad amici o familiari?</label>
+<p class="note">
+0 = Non la consiglierei mai<br>
+10 = La consiglierei sicuramente
+</p>
 <input type="number" min="0" max="10" name="nps">
 
 <label>Motivazione NPS</label>
@@ -113,6 +159,41 @@ document.getElementById("feedbackForm").addEventListener("submit", async functio
    document.getElementById("status").innerText = "Errore di connessione.";
  }
 });
+ document.getElementById("feedbackForm").addEventListener("submit", async function(e){
+ e.preventDefault();
+
+ const formData = Object.fromEntries(new FormData(this).entries());
+
+ try{
+   const response = await fetch(SCRIPT_URL,{
+     method:"POST",
+     headers:{"Content-Type":"application/json"},
+     body:JSON.stringify(formData)
+   });
+
+   document.getElementById("status").innerText =
+     response.ok ? "Grazie! Feedback inviato." : "Errore durante l'invio.";
+ }catch(err){
+   document.getElementById("status").innerText = "Errore di connessione.";
+ }
+});
+
+document.querySelector('input[name="dataVisita"]').value =
+new Date().toISOString().split('T')[0];
+
+document.querySelector('select[name="tipo"]').addEventListener('change', function(){
+
+ const msg = document.querySelector('textarea[name="messaggio"]');
+
+ if(this.value === "Reclamo"){
+   msg.required = true;
+ } else {
+   msg.required = false;
+ }
+
+});
+ 
+</script>
 </script>
 </body>
 </html>
