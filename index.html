@@ -232,6 +232,19 @@ function aggiornaAttendente(){
 
 va.addEventListener("input", aggiornaAttendente);
 aggiornaAttendente();
+const browserLang = navigator.language.toLowerCase();
+
+const lingua = document.getElementById("lingua");
+
+if (browserLang.startsWith("pt")) {
+  lingua.value = "pt";
+} else if (browserLang.startsWith("es")) {
+  lingua.value = "es";
+} else if (browserLang.startsWith("en")) {
+  lingua.value = "en";
+} else {
+  lingua.value = "it";
+}
  
 </script>
  
