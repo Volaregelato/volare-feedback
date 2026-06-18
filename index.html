@@ -53,9 +53,14 @@ button:hover{opacity:.9}
 </select>
 
  <label>Valutazione Generale (1-5)</label>
-<select name="valutazioneGenerale">
-<option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option>
-</select>
+<input type="range"
+       name="valutazioneGenerale"
+       min="1"
+       max="5"
+       value="5"
+       id="valutazioneGenerale">
+
+<div id="valoreGenerale">⭐⭐⭐⭐⭐ (5)</div>
 
 <label>Tipo</label>
 <select name="tipo">
