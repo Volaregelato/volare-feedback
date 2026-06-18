@@ -202,6 +202,17 @@ document.querySelector('select[name="tipo"]').addEventListener('change', functio
  }
 
 });
+ const vg = document.getElementById("valutazioneGenerale");
+const txtvg = document.getElementById("valoreGenerale");
+
+function aggiornaGenerale(){
+  txtvg.innerHTML =
+    "⭐".repeat(vg.value) +
+    " (" + vg.value + ")";
+}
+
+vg.addEventListener("input", aggiornaGenerale);
+aggiornaGenerale();
  
 </script>
  
