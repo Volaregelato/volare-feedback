@@ -218,6 +218,18 @@ function aggiornaGenerale(){
 
 vg.addEventListener("input", aggiornaGenerale);
 aggiornaGenerale();
+
+ const va = document.getElementById("valutazioneAttendente");
+const txtva = document.getElementById("valoreAttendente");
+
+function aggiornaAttendente(){
+  txtva.innerHTML =
+    "⭐".repeat(va.value) +
+    " (" + va.value + ")";
+}
+
+va.addEventListener("input", aggiornaAttendente);
+aggiornaAttendente();
  
 </script>
  
