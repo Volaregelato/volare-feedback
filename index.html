@@ -137,7 +137,23 @@ button:hover{opacity:.9}
 0 = Non la consiglierei mai<br>
 10 = La consiglierei sicuramente
 </p>
-<input type="number" min="0" max="10" name="nps" required>
+<label>Quanto consiglieresti Volare ad amici o familiari?</label>
+
+<div id="npsButtons">
+  <button type="button" class="nps-btn" data-value="0">0</button>
+  <button type="button" class="nps-btn" data-value="1">1</button>
+  <button type="button" class="nps-btn" data-value="2">2</button>
+  <button type="button" class="nps-btn" data-value="3">3</button>
+  <button type="button" class="nps-btn" data-value="4">4</button>
+  <button type="button" class="nps-btn" data-value="5">5</button>
+  <button type="button" class="nps-btn" data-value="6">6</button>
+  <button type="button" class="nps-btn" data-value="7">7</button>
+  <button type="button" class="nps-btn" data-value="8">8</button>
+  <button type="button" class="nps-btn" data-value="9">9</button>
+  <button type="button" class="nps-btn" data-value="10">10</button>
+</div>
+
+<input type="hidden" name="nps" id="nps" required>
 
 <label>Motivazione NPS</label>
 <textarea name="motivazioneNps"></textarea>
